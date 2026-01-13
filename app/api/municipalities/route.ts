@@ -155,6 +155,38 @@ function sortMunicipalities(
 }
 
 /**
+ * Removes duplicate delegations using (Name + PostalCode) as unique key
+ * - Case-insensitive on Name
+ * - Keeps the first occurrence
+ */
+function deduplicateDelegations(delegations: Delegation[]): Delegation[] {
+  const seen = new Set<string>();
+
+  return delegations.filter((d) => {
+    const key = `${d.Name.toLowerCase().trim()}|${d.PostalCode}`;
+
+    if (seen.has(key)) {
+      return false;
+    }
+
+    seen.add(key);
+    return true;
+  });
+}
+
+/**
+ * Removes duplicate delegations inside each municipality
+ */
+function deduplicateMunicipalities(
+  municipalities: Municipality[],
+): Municipality[] {
+  return municipalities.map((m) => ({
+    ...m,
+    Delegations: deduplicateDelegations(m.Delegations),
+  }));
+}
+
+/**
  * GET endpoint for municipalities API
  *
  * Supports the following query parameters:
@@ -229,6 +261,9 @@ export async function GET(request: Request) {
     ) {
       results = sortMunicipalities(results, sortingField, sortOrder);
     }
+
+    // Deduplicate delegations inside each municipality
+    results = deduplicateMunicipalities(results);
 
     return NextResponse.json(results);
   } catch (error) {
