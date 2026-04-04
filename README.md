@@ -110,6 +110,63 @@ fetch("/api/municipalities?name=ariana&delegation=ville");
 - **Bilingual Support** - Names in both English and Arabic
 - **Postal Codes** - Complete postal code database
 
+## 🤖 MCP Server (Model Context Protocol)
+
+This project includes an MCP server that allows AI assistants (Claude Desktop, Cursor, Windsurf, etc.) to directly query Tunisian municipality data using natural language.
+
+### Available Tools
+
+| Tool                         | Description                                                        |
+| ---------------------------- | ------------------------------------------------------------------ |
+| `search_municipalities`      | Search by governorate, delegation, postal code, or unified search  |
+| `find_nearby_municipalities` | Find delegations within a radius (km) of a GPS coordinate          |
+| `list_governorates`          | List all 24 governorates with delegation counts                    |
+| `get_governorate_details`    | Get full details for a specific governorate                        |
+
+### Quick Setup
+
+1. **Install dependencies** (if not already done)
+
+   ```bash
+   npm install
+   ```
+
+2. **Run the MCP server**
+
+   ```bash
+   npm run mcp
+   ```
+
+### Configure with Claude Desktop
+
+Add this to your Claude Desktop configuration (`claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "tn-municipality": {
+      "command": "npx",
+      "args": ["tsx", "mcp/server.ts"],
+      "cwd": "/path/to/tn-municipality-api"
+    }
+  }
+}
+```
+
+### Configure with Cursor / Windsurf
+
+Copy the provided `mcp.json` file to your project root or reference it in your editor's MCP settings.
+
+### Example Interactions
+
+Once configured, you can ask your AI assistant things like:
+
+- *"List all Tunisian governorates"*
+- *"Find municipalities in Ariana with postal code 2058"*
+- *"What delegations are within 5km of latitude 36.8, longitude 10.18?"*
+- *"Give me details about the Sfax governorate"*
+
+
 ## 🤝 Contributing
 
 We welcome contributions from the community! Whether you're a developer, designer, or just someone who wants to help improve this project, we'd love to have you on board.

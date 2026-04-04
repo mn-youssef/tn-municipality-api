@@ -13,14 +13,17 @@
     "postal-code",
     "nextjs",
     "typescript",
-    "react"
+    "react",
+    "mcp",
+    "model-context-protocol"
   ],
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky"
+    "prepare": "husky",
+    "mcp": "tsx mcp/server.ts"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -32,6 +35,7 @@
     ]
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
@@ -43,7 +47,8 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-toastify": "^11.0.5",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -56,6 +61,7 @@
     "lint-staged": "^16.1.5",
     "prettier": "^3.6.2",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "tw-animate-css": "^1.3.6",
     "typescript": "^5"
   }

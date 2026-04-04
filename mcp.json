@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "tn-municipality": {
+      "command": "npx",
+      "args": ["tsx", "mcp/server.ts"],
+      "env": {}
+    }
+  }
+}
