@@ -24313,7 +24313,7 @@ export const data = [
       },
       {
         Name: "MENZEL TEMIME (Skalba)",
-        NameAr: "منزل تميم (سكلة)",
+        NameAr: "منزل تميم (الصقالبة)",
         Value: "MENZEL TEMIME",
         PostalCode: "8064",
         Latitude: 36.7833,
@@ -25904,8 +25904,8 @@ export const data = [
         Longitude: 10.5833,
       },
       {
-        Name: "MENZEL TEMIME (Echaibni)",
-        NameAr: "منزل تميم (الشايبي)",
+        Name: "MENZEL TEMIME (El Chaibine)",
+        NameAr: "منزل تميم (الشعيبين)",
         Value: "MENZEL TEMIME",
         PostalCode: "8080",
         Latitude: 36.7833,
@@ -26097,11 +26097,27 @@ export const data = [
       },
       {
         Name: "MENZEL TEMIME (Rainine)",
-        NameAr: "منزل تميم (رينين)",
+        NameAr: "منزل تميم (الرعينين)",
         Value: "MENZEL TEMIME",
         PostalCode: "8083",
         Latitude: 36.7833,
         Longitude: 11.0167,
+      },
+      {
+        Name: "MENZEL TEMIME (Chahine)",
+        NameAr: "منزل تميم (شاهين)",
+        Value: "MENZEL TEMIME",
+        PostalCode: "8080",
+        Latitude: 36.7981,
+        Longitude: 10.9514,
+      },
+      {
+        Name: "MENZEL TEMIME (El Gobba)",
+        NameAr: "منزل تميم (الڨبة)",
+        Value: "MENZEL TEMIME",
+        PostalCode: "8080",
+        Latitude: 36.8054,
+        Longitude: 10.9331,
       },
       {
         Name: "BENI KHALLED (Cite Ezzaouch)",
