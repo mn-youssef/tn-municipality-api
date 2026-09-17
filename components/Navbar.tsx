@@ -1,16 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import {
-  Github,
-  Home,
-  BookOpen,
-  Code2,
-  Globe,
-  ChevronDown,
-} from "lucide-react";
+import { Home, BookOpen, Code2, Globe, ChevronDown } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { GitHubIcon } from "./icons/GitHubIcon";
 
 interface NavbarProps {
   className?: string;
@@ -34,18 +28,17 @@ export function Navbar({ className }: NavbarProps) {
   const [isMobile, setIsMobile] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("home");
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState("en");
   const t = useTranslations("nav");
-  const isRTL = currentLanguage === "ar";
   const router = useRouter();
   const pathname = usePathname();
+  const currentLanguage = pathname.startsWith("/ar") ? "ar" : "en";
+  const isRTL = currentLanguage === "ar";
   const navItems = [
     { name: t("home"), href: "#home", icon: <Home size={22} /> },
     { name: t("api"), href: "#playground", icon: <Code2 size={22} /> },
     { name: t("docs"), href: "#docs", icon: <BookOpen size={22} /> },
   ];
   const switchLanguage = (langCode: string) => {
-    setCurrentLanguage(langCode);
     setIsLanguageDropdownOpen(false);
 
     const pathWithoutLocale =
@@ -55,11 +48,6 @@ export function Navbar({ className }: NavbarProps) {
 
     router.push(`/${langCode}${pathWithoutLocale}`);
   };
-
-  useEffect(() => {
-    const pathLang = pathname.startsWith("/ar") ? "ar" : "en";
-    setCurrentLanguage(pathLang);
-  }, [pathname]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -300,7 +288,7 @@ export function Navbar({ className }: NavbarProps) {
                 tabIndex={0}
                 aria-label="Open GitHub repository"
               >
-                <Github size={18} />
+                <GitHubIcon size={18} />
                 {t("github")}
               </motion.button>
               {/* Language Dropdown */}
@@ -475,7 +463,7 @@ export function Navbar({ className }: NavbarProps) {
               }}
               tabIndex={0}
             >
-              <Github size={22} />
+              <GitHubIcon size={22} />
             </button>
 
             <div style={{ position: "relative" }} data-language-dropdown>

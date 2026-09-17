@@ -3,7 +3,7 @@ import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send } from "lucide-react";
 import { Select } from "./ui/select";
@@ -33,13 +33,8 @@ export function ApiPlayground({
   const [radius, setRadius] = useState(10);
   const [sortBy, setSortBy] = useState("Name");
   const [lastUrl, setLastUrl] = useState("");
-  const [currentLanguage, setCurrentLanguage] = useState("en");
 
-  const isRTL = currentLanguage === "ar";
-  useEffect(() => {
-    const pathLang = pathname.startsWith("/ar") ? "ar" : "en";
-    setCurrentLanguage(pathLang);
-  }, [pathname]);
+  const isRTL = pathname.startsWith("/ar");
   async function routeAPI(e: any) {
     e.preventDefault();
     const clickedButton = e.nativeEvent?.submitter;

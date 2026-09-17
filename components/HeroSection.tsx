@@ -1,5 +1,4 @@
 "use client";
-import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 
@@ -22,15 +21,10 @@ export function HeroSection({
   onSecondaryClick,
   className,
 }: HeroSectionProps) {
-  const [currentLanguage, setCurrentLanguage] = useState("en");
   const pathname = usePathname();
 
-  const isRTL = currentLanguage === "ar";
+  const isRTL = pathname.startsWith("/ar");
 
-  useEffect(() => {
-    const pathLang = pathname.startsWith("/ar") ? "ar" : "en";
-    setCurrentLanguage(pathLang);
-  }, [pathname]);
   return (
     <div
       style={{
