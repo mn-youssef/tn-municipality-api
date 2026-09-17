@@ -165,7 +165,7 @@ export function ApiPlayground() {
   return (
     <section
       id="playground"
-      className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-24"
+      className="mx-auto max-w-6xl px-4 py-14 sm:px-6 md:py-24"
     >
       <div className="max-w-2xl">
         <h2 className="text-3xl font-semibold tracking-[-0.025em] sm:text-4xl">

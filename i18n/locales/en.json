@@ -9,7 +9,8 @@
     "closeMenu": "Close menu",
     "language": "Language",
     "star": "Star on GitHub",
-    "backToTop": "Back to top"
+    "backToTop": "Back to top",
+    "ai": "AI"
   },
   "hero": {
     "title": "Tunisian Municipality API",
@@ -143,5 +144,25 @@
   "common": {
     "copy": "Copy",
     "copied": "Copied"
+  },
+  "ai": {
+    "title": "Use it with your AI assistant",
+    "description": "Copy a prompt that already explains the endpoints, parameters and response shape, then paste it into ChatGPT, Claude, Cursor or Copilot.",
+    "taskLabel": "What are you building?",
+    "tasks": {
+      "address": "Address form",
+      "postal": "Postal code lookup",
+      "nearby": "Nearby localities",
+      "custom": "Something else"
+    },
+    "copyPrompt": "Copy prompt",
+    "openIn": "Open in {app}",
+    "prompt": "Prompt",
+    "llmsDescription": "Plain-text API reference that AI tools can read directly.",
+    "copyLlmsUrl": "Copy llms.txt URL",
+    "heroButton": "Copy prompt for AI",
+    "docsButton": "Copy docs for AI",
+    "showPrompt": "Preview prompt",
+    "hidePrompt": "Hide prompt"
   }
 }

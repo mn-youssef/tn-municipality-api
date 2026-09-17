@@ -6,6 +6,7 @@ import { HeroSection } from "./HeroSection";
 import { FeaturesSection } from "./FeaturesSection";
 import { StatsSection } from "./StatsSection";
 import { ApiPlayground } from "./ApiPlayground";
+import { AiSection } from "./AiSection";
 import { DocumentationSection } from "./DocumentationSection";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
@@ -39,7 +40,11 @@ export function HomePage({ stats }: { stats: DataStats }) {
         <FeaturesSection />
         <StatsSection stats={stats} />
         <ApiPlayground />
-        <DocumentationSection exampleResponse={exampleResponse} />
+        <AiSection />
+        <DocumentationSection
+          exampleResponse={exampleResponse}
+          counts={stats}
+        />
       </main>
       <Footer />
       <StickyGitHubButton repoUrl="https://github.com/youssef-of-web/tn-municipality-api" />
