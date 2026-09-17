@@ -3,8 +3,10 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
+import { Brain } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { buildLlmsTxt } from "@/lib/ai";
 import { API_ORIGIN } from "@/lib/site";
 import { CopyButton } from "./ui/copy-button";
 import {
@@ -64,11 +66,14 @@ const sections = [
 
 export function DocumentationSection({
   exampleResponse,
+  counts,
 }: {
   exampleResponse: string;
+  counts: Parameters<typeof buildLlmsTxt>[0];
 }) {
   const t = useTranslations("documentation");
   const tCommon = useTranslations("common");
+  const tAi = useTranslations("ai");
   const [exampleIndex, setExampleIndex] = useState(1);
   const [language, setLanguage] = useState<Language>("cURL");
 
@@ -77,10 +82,20 @@ export function DocumentationSection({
 
   return (
     <section id="docs" className="border-t border-border">
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-24">
-        <h2 className="text-3xl font-semibold tracking-[-0.025em] sm:text-4xl">
-          {t("title")}
-        </h2>
+      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 md:py-24">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <h2 className="text-3xl font-semibold tracking-[-0.025em] sm:text-4xl">
+            {t("title")}
+          </h2>
+          <CopyButton
+            value={buildLlmsTxt(counts)}
+            label={tAi("docsButton")}
+            copiedLabel={tCommon("copied")}
+            icon={Brain}
+            showLabel
+            variant="outline"
+          />
+        </div>
 
         <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-[180px_minmax(0,1fr)] lg:gap-16">
           <nav aria-label={t("onThisPage")} className="hidden lg:block">

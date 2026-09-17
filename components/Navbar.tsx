@@ -55,6 +55,7 @@ export function Navbar({ className }: { className?: string }) {
   const navItems: { id: SectionId; label: string }[] = [
     { id: "home", label: t("home") },
     { id: "playground", label: t("api") },
+    { id: "ai", label: t("ai") },
     { id: "docs", label: t("docs") },
   ];
 

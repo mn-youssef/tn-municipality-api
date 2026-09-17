@@ -2,10 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, Copy } from "lucide-react";
+import { Check, Copy, type LucideIcon } from "lucide-react";
+import type { VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
-import { Button } from "./button";
+import { Button, buttonVariants } from "./button";
 
 interface CopyButtonProps {
   value: string;
@@ -14,6 +15,9 @@ interface CopyButtonProps {
   /** Show the label next to the icon instead of only using it as aria-label. */
   showLabel?: boolean;
   tone?: "light" | "dark";
+  icon?: LucideIcon;
+  variant?: VariantProps<typeof buttonVariants>["variant"];
+  size?: VariantProps<typeof buttonVariants>["size"];
   className?: string;
 }
 
@@ -23,6 +27,9 @@ export function CopyButton({
   copiedLabel,
   showLabel = false,
   tone = "light",
+  icon: Icon = Copy,
+  variant = "ghost",
+  size,
   className,
 }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
@@ -46,17 +53,21 @@ export function CopyButton({
     }
   }
 
+  const quiet = variant === "ghost";
+
   return (
     <Button
       type="button"
-      variant="ghost"
-      size={showLabel ? "sm" : "icon-sm"}
+      variant={variant}
+      size={size ?? (showLabel ? "sm" : "icon-sm")}
       onClick={copy}
       aria-label={showLabel ? undefined : copied ? copiedLabel : label}
       className={cn(
         tone === "dark" &&
           "text-code-muted hover:bg-white/10 hover:text-code-foreground focus-visible:ring-white/30",
-        copied && (tone === "dark" ? "text-code-number" : "text-success"),
+        quiet &&
+          copied &&
+          (tone === "dark" ? "text-code-number" : "text-success"),
         className,
       )}
     >
@@ -70,7 +81,7 @@ export function CopyButton({
             exit={{ opacity: 0, scale: 0.5 }}
             transition={{ duration: 0.16, ease: [0.2, 0, 0, 1] }}
           >
-            {copied ? <Check /> : <Copy />}
+            {copied ? <Check /> : <Icon />}
           </motion.span>
         </AnimatePresence>
       </span>

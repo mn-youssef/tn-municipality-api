@@ -1,9 +1,11 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { motion, type Variants } from "framer-motion";
-import { BookOpen, SquareTerminal } from "lucide-react";
+import { BookOpen, Brain, SquareTerminal } from "lucide-react";
 
+import { buildPrompt } from "@/lib/ai";
 import { API_ORIGIN } from "@/lib/site";
 import { Button } from "./ui/button";
 import { CopyButton } from "./ui/copy-button";
@@ -41,6 +43,8 @@ const item: Variants = {
 export function HeroSection() {
   const t = useTranslations("hero");
   const tCommon = useTranslations("common");
+  const tAi = useTranslations("ai");
+  const locale = usePathname().startsWith("/ar") ? "ar" : "en";
   const baseUrl = `${API_ORIGIN}/api/municipalities`;
 
   return (
@@ -107,7 +111,17 @@ export function HeroSection() {
                 copiedLabel={tCommon("copied")}
               />
             </div>
-            <p className="mt-3 text-sm text-muted-foreground">{t("note")}</p>
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+              <p className="text-sm text-muted-foreground">{t("note")}</p>
+              <CopyButton
+                value={buildPrompt("custom", locale)}
+                label={tAi("heroButton")}
+                copiedLabel={tCommon("copied")}
+                icon={Brain}
+                showLabel
+                variant="secondary"
+              />
+            </div>
           </motion.div>
         </motion.div>
 
