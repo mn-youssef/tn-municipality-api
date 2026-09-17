@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
-import { Github, Star } from "lucide-react";
+import { Star } from "lucide-react";
+import { GitHubIcon } from "./icons/GitHubIcon";
 
 interface StickyGitHubButtonProps {
   repoUrl?: string;
@@ -24,11 +25,13 @@ export function StickyGitHubButton({
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ delay: 1, duration: 0.5 }}
     >
-      <motion.button
-        onClick={() => window.open(repoUrl, "_blank")}
+      <motion.a
+        href={repoUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Star the project on GitHub"
         style={{
           background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-          border: "none",
           borderRadius: 50,
           padding: "16px 20px",
           cursor: "pointer",
@@ -38,8 +41,8 @@ export function StickyGitHubButton({
           color: "white",
           fontWeight: 600,
           fontSize: 16,
+          textDecoration: "none",
           boxShadow: "0 8px 32px rgba(102, 126, 234, 0.3)",
-          transition: "all 0.3s ease",
         }}
         whileHover={{
           scale: 1.1,
@@ -52,12 +55,12 @@ export function StickyGitHubButton({
           transition: { duration: 0.5, repeat: Infinity, repeatDelay: 3 },
         }}
       >
-        <Github size={20} />
+        <GitHubIcon size={20} />
         <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
           Star
           <Star size={16} style={{ fill: "white" }} />
         </span>
-      </motion.button>
+      </motion.a>
     </motion.div>
   );
 }

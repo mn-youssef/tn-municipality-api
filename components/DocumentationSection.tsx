@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Card } from "./ui/card";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 
 interface DocumentationSectionProps {
   title?: string;
@@ -56,14 +55,8 @@ export function DocumentationSection({
 }: DocumentationSectionProps) {
   const tDoc = useTranslations("documentation");
   const pathname = usePathname();
-  const [currentLanguage, setCurrentLanguage] = useState("en");
 
-  const isRTL = currentLanguage === "ar";
-
-  useEffect(() => {
-    const pathLang = pathname.startsWith("/ar") ? "ar" : "en";
-    setCurrentLanguage(pathLang);
-  }, [pathname]);
+  const isRTL = pathname.startsWith("/ar");
 
   return (
     <div
