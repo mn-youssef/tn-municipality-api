@@ -1,69 +1,36 @@
-import { Card } from "./ui/card";
-import { Rocket, Search, BarChart } from "lucide-react";
-import { ReactNode } from "react";
+"use client";
 
-interface Feature {
-  icon: ReactNode;
-  title: string;
-  description: string;
-}
+import { useTranslations } from "next-intl";
+import { Gauge, ListFilter, MapPinned } from "lucide-react";
 
-interface FeaturesSectionProps {
-  features?: Feature[];
-  className?: string;
-}
+const features = [
+  { key: "powerfulFiltering", Icon: ListFilter },
+  { key: "richData", Icon: MapPinned },
+  { key: "fastReliable", Icon: Gauge },
+] as const;
 
-const defaultFeatures: Feature[] = [
-  {
-    icon: <Rocket size={32} strokeWidth={1.5} />,
-    title: "Fast & Reliable",
-    description: "Lightning-fast responses with 99.9% uptime guarantee",
-  },
-  {
-    icon: <Search size={32} strokeWidth={1.5} />,
-    title: "Powerful Filtering",
-    description: "Filter by governorate, delegation, postal code, and more",
-  },
-  {
-    icon: <BarChart size={32} strokeWidth={1.5} />,
-    title: "Rich Data",
-    description: "Complete municipality data with coordinates and Arabic names",
-  },
-];
+export function FeaturesSection() {
+  const t = useTranslations("features");
 
-export function FeaturesSection({
-  features = defaultFeatures,
-  className,
-}: FeaturesSectionProps) {
   return (
-    <div
-      dir="rtl"
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-        gap: 20,
-        marginBottom: 48,
-        padding: "0 8px",
-      }}
-      className={className}
-    >
-      {features.map((feature) => (
-        <Card key={feature.title} style={{ padding: 20, textAlign: "center" }}>
-          <div
-            style={{
-              marginBottom: 12,
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            {feature.icon}
-          </div>
-          <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 6 }}>
-            {feature.title}
-          </h3>
-          <p style={{ color: "#666", fontSize: 15 }}>{feature.description}</p>
-        </Card>
-      ))}
-    </div>
+    <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-20">
+      <ul className="grid gap-10 md:grid-cols-3 md:gap-8">
+        {features.map(({ key, Icon }) => (
+          <li key={key} className="border-t border-border pt-6">
+            <div className="flex items-center gap-3">
+              <span className="grid size-9 place-items-center rounded-lg bg-secondary text-primary">
+                <Icon className="size-[18px]" strokeWidth={1.75} />
+              </span>
+              <h2 className="text-base font-semibold tracking-tight">
+                {t(`${key}.title`)}
+              </h2>
+            </div>
+            <p className="mt-3 max-w-[38ch] leading-relaxed text-muted-foreground">
+              {t(`${key}.description`)}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }

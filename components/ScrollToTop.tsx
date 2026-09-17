@@ -1,69 +1,29 @@
 "use client";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+
+import { useTranslations } from "next-intl";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 
-interface ScrollToTopProps {
-  className?: string;
-}
+import { useScrolledPast } from "@/lib/use-scrolled-past";
 
-export function ScrollToTop({ className }: ScrollToTopProps) {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
-    window.addEventListener("scroll", toggleVisibility);
-    return () => window.removeEventListener("scroll", toggleVisibility);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+export function ScrollToTop() {
+  const t = useTranslations("nav");
+  const visible = useScrolledPast(560);
 
   return (
     <AnimatePresence>
-      {isVisible && (
+      {visible && (
         <motion.button
-          className={className}
-          onClick={scrollToTop}
-          style={{
-            position: "fixed",
-            bottom: 20,
-            left: 20,
-            zIndex: 1000,
-            background: "rgba(0, 0, 0, 0.8)",
-            border: "none",
-            borderRadius: 50,
-            width: 50,
-            height: 50,
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-            backdropFilter: "blur(10px)",
-          }}
-          initial={{ opacity: 0, scale: 0.8, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.8, y: 20 }}
-          whileHover={{
-            scale: 1.1,
-            backgroundColor: "rgba(0, 0, 0, 0.9)",
-            y: -5,
-          }}
-          whileTap={{ scale: 0.9 }}
+          type="button"
+          aria-label={t("backToTop")}
+          onClick={() => window.scrollTo({ top: 0 })}
+          initial={{ opacity: 0, y: 12, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 12, scale: 0.9 }}
+          transition={{ duration: 0.25, ease: [0.2, 0, 0, 1] }}
+          className="group fixed end-4 bottom-4 z-40 grid size-11 cursor-pointer place-items-center rounded-full border border-border bg-card/90 text-foreground shadow-[0_8px_24px_-12px_rgb(15_27_45/0.35)] backdrop-blur-md transition-[box-shadow,border-color] duration-200 outline-none hover:border-foreground/20 hover:shadow-[0_14px_32px_-14px_rgb(15_27_45/0.45)] focus-visible:ring-[3px] focus-visible:ring-ring/30 md:end-6 md:bottom-20"
         >
-          <ArrowUp size={20} />
+          <ArrowUp className="size-[18px] transition-transform duration-200 group-hover:-translate-y-0.5 motion-reduce:group-hover:translate-y-0" />
         </motion.button>
       )}
     </AnimatePresence>

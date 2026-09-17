@@ -4,13 +4,20 @@
     "api": "API",
     "docs": "Docs",
     "github": "GitHub",
-    "logo": "Municipality API"
+    "logo": "Municipality API",
+    "menu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language",
+    "star": "Star on GitHub",
+    "backToTop": "Back to top"
   },
   "hero": {
     "title": "Tunisian Municipality API",
     "description": "Access comprehensive Tunisian municipality data with powerful filtering options. Built for developers, by developers.",
     "primaryButton": "Try the API",
-    "secondaryButton": "View Documentation"
+    "secondaryButton": "View Documentation",
+    "note": "Free and open source. No API key required.",
+    "baseUrl": "Base URL"
   },
   "features": {
     "fastReliable": {
@@ -27,9 +34,17 @@
     }
   },
   "stats": {
-    "title": "Data Overview",
+    "title": "How the data is structured",
     "governorates": "Governorates",
-    "delegations": "Delegations"
+    "delegations": "Delegations",
+    "description": "Three levels, from the governorate down to the locality, each with Arabic and English names.",
+    "localities": "Localities",
+    "postalCodes": "Postal codes",
+    "levelGovernorate": "Governorate",
+    "levelDelegation": "Delegation",
+    "levelLocality": "Locality",
+    "moreDelegations": "{count, plural, one {# more delegation} other {# more delegations}}",
+    "moreLocalities": "{count, plural, one {# more locality} other {# more localities}}"
   },
   "playground": {
     "title": "API Playground",
@@ -40,28 +55,39 @@
     "delegationPlaceholder": "e.g. Ville",
     "postalCode": "Postal Code",
     "postalCodePlaceholder": "e.g. 2058",
-    "sortBy": "SortBy",
+    "sortBy": "Sort by",
     "sortByName": "Name",
-    "sortByNameAr": "NameAr (Arabic)",
+    "sortByNameAr": "Arabic name",
     "testApi": "Test API",
     "loading": "Loading...",
     "radius": "Radius (km)",
     "getNearbyMunicipalities": "Get Nearby Municipalities",
     "apiResponse": "API Response",
-    "apiResponsePlaceholder": "// Your API response will appear here",
+    "apiResponsePlaceholder": "Send a request to see the JSON response here.",
     "copyUrl": "Copy URL",
     "urlCopied": "URL copied to clipboard!",
     "geolocationError": "Failed to get your location. Please allow location access or check your internet connection.",
-    "geolocationNotSupported": "Geolocation is not supported by this browser."
+    "geolocationNotSupported": "Geolocation is not supported by this browser.",
+    "searchTab": "Search",
+    "nearbyTab": "Nearby",
+    "send": "Send request",
+    "requestUrl": "Request URL",
+    "copyResponse": "Copy response",
+    "resultSummary": "{governorates, plural, one {# governorate} other {# governorates}}, {localities, plural, one {# locality} other {# localities}}",
+    "requestFailed": "The request failed. Check your connection and try again.",
+    "nearbyHint": "Uses your browser location to build the request.",
+    "optional": "Optional"
   },
   "documentation": {
     "title": "API Documentation",
     "endpoints": {
-      "title": "🔗 API Endpoints",
-      "baseUrl": "Base URL:"
+      "title": "Endpoints",
+      "baseUrl": "Base URL",
+      "list": "List and search municipalities",
+      "near": "Find municipalities near a point"
     },
     "parameters": {
-      "title": "🔍 Query Parameters",
+      "title": "Query parameters",
       "description": "Use these parameters to filter the municipality data. All parameters are optional and can be combined.",
       "name": {
         "description": "Filter by governorate name (e.g., Ariana, Tunis, Sfax)",
@@ -72,16 +98,33 @@
         "example": "?delegation=ville"
       },
       "postalCode": {
-        "description": "Filter by postal code (5-digit format)",
+        "description": "Filter by exact postal code (4 digits)",
         "example": "?postalCode=2058"
       },
       "location": {
         "description": "Get municipalities near a specific location within a radius (in km)",
-        "example": "?lat=36.8065&lng=10.1815&radius=5000"
+        "example": "?lat=36.8065&lng=10.1815&radius=5"
+      },
+      "table": {
+        "parameter": "Parameter",
+        "type": "Type",
+        "description": "Description"
+      },
+      "search": {
+        "description": "Searches governorates first, then delegations when nothing matches. Accepts English or Arabic names.",
+        "example": "?search=ariana"
+      },
+      "sort": {
+        "description": "Sort governorates by name or nameAr",
+        "example": "?sort=nameAr"
+      },
+      "order": {
+        "description": "Sort direction, asc (default) or desc. Use together with sort.",
+        "example": "?sort=name&order=desc"
       }
     },
     "examples": {
-      "title": "💡 Usage Examples",
+      "title": "Examples",
       "getAllMunicipalities": "Get all municipalities",
       "filterByGovernorate": "Filter by governorate",
       "filterByDelegation": "Filter by delegation",
@@ -90,10 +133,15 @@
       "exampleLabel": "Example"
     },
     "response": {
-      "title": "📄 Example Response"
-    }
+      "title": "Example response"
+    },
+    "onThisPage": "On this page"
   },
   "footer": {
     "text": "Built with ❤️ for the Tunisian developer community"
+  },
+  "common": {
+    "copy": "Copy",
+    "copied": "Copied"
   }
 }
