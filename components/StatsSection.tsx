@@ -1,145 +1,209 @@
 "use client";
-import { motion } from "framer-motion";
-import { Card } from "./ui/card";
-import { Database, Users } from "lucide-react";
+
 import { useTranslations } from "next-intl";
+import { Building2, Landmark, MapPin, type LucideIcon } from "lucide-react";
 
-interface Stat {
-  icon: React.ReactNode;
-  label: string;
-  value: number;
-  suffix?: string;
-  translationKey: string;
-}
+import { cn } from "@/lib/utils";
+import type { DataStats } from "@/lib/stats";
 
-interface StatsSectionProps {
-  stats?: Stat[];
-  className?: string;
-}
+export function StatsSection({ stats }: { stats: DataStats }) {
+  const t = useTranslations("stats");
+  const { sample } = stats;
+  const format = (n: number) => n.toLocaleString("en-US");
 
-const defaultStats: Stat[] = [
-  {
-    icon: <Database size={28} strokeWidth={1.5} />,
-    label: "Governorates",
-    value: 24,
-    suffix: "",
-    translationKey: "governorates",
-  },
-  {
-    icon: <Users size={28} strokeWidth={1.5} />,
-    label: "Delegations",
-    value: 264,
-    suffix: "",
-    translationKey: "delegations",
-  },
-];
+  const counts = [
+    { label: t("governorates"), value: stats.governorates },
+    { label: t("delegations"), value: stats.delegations },
+    { label: t("localities"), value: stats.localities },
+    { label: t("postalCodes"), value: stats.postalCodes },
+  ];
 
-export function StatsSection({
-  stats = defaultStats,
-  className,
-}: StatsSectionProps) {
-  const tStats = useTranslations("stats");
+  const [firstDelegation, secondDelegation] = sample.delegations;
+
   return (
-    <section className={className} style={{ padding: "40px 0" }}>
-      <motion.h2
-        style={{
-          fontSize: "clamp(20px, 4vw, 24px)",
-          fontWeight: 600,
-          textAlign: "center",
-          marginBottom: 32,
-          color: "#333",
-        }}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-      >
-        {tStats("title")}
-      </motion.h2>
+    <section className="border-y border-border bg-card">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-4 py-16 sm:px-6 md:py-20 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center lg:gap-16">
+        <div>
+          <h2 className="text-3xl font-semibold tracking-[-0.025em] text-balance sm:text-4xl">
+            {t("title")}
+          </h2>
+          <p className="mt-4 max-w-[46ch] text-lg leading-relaxed text-pretty text-muted-foreground">
+            {t("description")}
+          </p>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-          gap: "clamp(16px, 3vw, 24px)",
-          maxWidth: 800,
-          margin: "0 auto",
-          padding: "0 clamp(16px, 4vw, 24px)",
-        }}
-      >
-        {stats.map((stat, index) => (
-          <motion.div
-            key={stat.label}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1, duration: 0.5 }}
-            viewport={{ once: true }}
+          <dl className="mt-8 divide-y divide-border border-y border-border">
+            {counts.map((count) => (
+              <div
+                key={count.label}
+                className="flex items-baseline justify-between gap-4 py-3.5"
+              >
+                <dt className="text-muted-foreground">{count.label}</dt>
+                <dd className="text-xl font-semibold tracking-tight tabular-nums">
+                  {format(count.value)}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        <figure className="min-w-0 overflow-hidden rounded-2xl border border-border bg-background">
+          <figcaption
+            dir="ltr"
+            className="flex h-11 items-center gap-2 border-b border-border bg-card px-4"
           >
-            <Card
-              style={{
-                padding: "clamp(20px, 4vw, 28px)",
-                textAlign: "center",
-                border: "1px solid #e9ecef",
-                background: "white",
-                borderRadius: 12,
-                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
-                transition: "transform 0.2s ease, box-shadow 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-4px)";
-                e.currentTarget.style.boxShadow =
-                  "0 8px 24px rgba(0, 0, 0, 0.1)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow =
-                  "0 2px 8px rgba(0, 0, 0, 0.05)";
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginBottom: "clamp(12px, 2vw, 16px)",
-                  color: "#0070f3",
-                }}
-              >
-                {stat.icon}
-              </div>
-              <motion.div
-                style={{
-                  fontSize: "clamp(24px, 5vw, 32px)",
-                  fontWeight: 700,
-                  color: "#333",
-                  marginBottom: "clamp(4px, 1vw, 8px)",
-                  lineHeight: 1.2,
-                }}
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                transition={{
-                  delay: index * 0.1 + 0.3,
-                  duration: 0.5,
-                  type: "spring",
-                }}
-                viewport={{ once: true }}
-              >
-                {stat.value.toLocaleString()}
-                {stat.suffix}
-              </motion.div>
-              <div
-                style={{
-                  fontSize: "clamp(14px, 3vw, 16px)",
-                  color: "#666",
-                  fontWeight: 500,
-                  lineHeight: 1.4,
-                }}
-              >
-                {tStats(stat.translationKey)}
-              </div>
-            </Card>
-          </motion.div>
-        ))}
+            <span className="rounded bg-secondary px-1.5 py-0.5 font-mono text-[11px] font-semibold text-secondary-foreground">
+              GET
+            </span>
+            <code className="truncate font-mono text-[12.5px] text-muted-foreground">
+              /api/municipalities?name=
+              {sample.governorate.name.toLowerCase()}
+            </code>
+          </figcaption>
+
+          <div className="p-4 sm:p-6">
+            <TreeRow
+              icon={Landmark}
+              name={sample.governorate.name}
+              nameAr={sample.governorate.nameAr}
+              meta={t("levelGovernorate")}
+              strong
+            />
+            <TreeBranch>
+              <TreeItem>
+                <TreeRow
+                  icon={Building2}
+                  name={firstDelegation.name}
+                  nameAr={firstDelegation.nameAr}
+                  meta={t("levelDelegation")}
+                />
+                <TreeBranch>
+                  {sample.localities.map((locality, index) => (
+                    <TreeItem key={locality.name}>
+                      <TreeRow
+                        icon={MapPin}
+                        name={locality.name}
+                        nameAr={locality.nameAr}
+                        meta={index === 0 ? t("levelLocality") : undefined}
+                        code={locality.postalCode}
+                      />
+                    </TreeItem>
+                  ))}
+                  <TreeItem>
+                    <TreeMore>
+                      {t("moreLocalities", {
+                        count:
+                          firstDelegation.localityCount -
+                          sample.localities.length,
+                      })}
+                    </TreeMore>
+                  </TreeItem>
+                </TreeBranch>
+              </TreeItem>
+              {secondDelegation && (
+                <TreeItem>
+                  <TreeRow
+                    icon={Building2}
+                    name={secondDelegation.name}
+                    nameAr={secondDelegation.nameAr}
+                  />
+                </TreeItem>
+              )}
+              <TreeItem>
+                <TreeMore>
+                  {t("moreDelegations", {
+                    count:
+                      sample.governorate.delegationCount -
+                      sample.delegations.length,
+                  })}
+                </TreeMore>
+              </TreeItem>
+            </TreeBranch>
+          </div>
+        </figure>
       </div>
     </section>
+  );
+}
+
+// Icons are 18px wide, so a 9px inset puts the guide line under their centre.
+function TreeBranch({ children }: { children: React.ReactNode }) {
+  return <ul className="ms-[9px]">{children}</ul>;
+}
+
+function TreeItem({ children }: { children: React.ReactNode }) {
+  return (
+    <li
+      className={cn(
+        "relative ps-5",
+        // vertical guide, cut at the elbow on the last child
+        "before:absolute before:start-0 before:top-0 before:bottom-0 before:border-s before:border-border last:before:bottom-auto last:before:h-5",
+        // horizontal elbow into the row
+        "after:absolute after:start-0 after:top-5 after:w-3 after:border-t after:border-border",
+      )}
+    >
+      {children}
+    </li>
+  );
+}
+
+function TreeRow({
+  icon: Icon,
+  name,
+  nameAr,
+  meta,
+  code,
+  strong = false,
+}: {
+  icon: LucideIcon;
+  name: string;
+  nameAr: string;
+  meta?: string;
+  code?: string;
+  strong?: boolean;
+}) {
+  return (
+    <div className="flex min-h-10 items-center gap-3 py-1.5">
+      <Icon
+        aria-hidden="true"
+        strokeWidth={1.75}
+        className={cn(
+          "size-[18px] shrink-0",
+          strong ? "text-foreground" : "text-primary",
+        )}
+      />
+      <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-2.5">
+        <span
+          dir="ltr"
+          className={cn(
+            "text-[15px]",
+            strong ? "font-semibold" : "font-medium",
+          )}
+        >
+          {name}
+        </span>
+        <span lang="ar" dir="rtl" className="text-muted-foreground">
+          {nameAr}
+        </span>
+      </div>
+      {code && (
+        <code className="shrink-0 rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">
+          {code}
+        </code>
+      )}
+      {meta && (
+        <span className="hidden w-24 shrink-0 text-end text-xs text-muted-foreground sm:block">
+          {meta}
+        </span>
+      )}
+      {!meta && <span className="hidden w-24 shrink-0 sm:block" />}
+    </div>
+  );
+}
+
+function TreeMore({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="flex min-h-10 items-center text-sm text-muted-foreground">
+      {children}
+    </p>
   );
 }

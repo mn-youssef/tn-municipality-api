@@ -4,13 +4,20 @@
     "api": "واجهة البرمجة",
     "docs": "التوثيق",
     "github": "GitHub",
-    "logo": "واجهة برمجة البلديات"
+    "logo": "واجهة برمجة البلديات",
+    "menu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة",
+    "language": "اللغة",
+    "star": "ضع نجمة على GitHub",
+    "backToTop": "العودة إلى الأعلى"
   },
   "hero": {
     "title": "واجهة برمجة البلديات التونسية",
     "description": "احصل على بيانات شاملة للبلديات التونسية مع خيارات فلترة قوية. مصممة للمطورين، من قبل المطورين.",
     "primaryButton": "جرب الواجهة",
-    "secondaryButton": "عرض التوثيق"
+    "secondaryButton": "عرض التوثيق",
+    "note": "مجانية ومفتوحة المصدر. لا حاجة لمفتاح API.",
+    "baseUrl": "الرابط الأساسي"
   },
   "features": {
     "fastReliable": {
@@ -27,9 +34,17 @@
     }
   },
   "stats": {
-    "title": "نظرة عامة على البيانات",
+    "title": "كيف تُنظَّم البيانات",
     "governorates": "الولايات",
-    "delegations": "المعتمديات"
+    "delegations": "المعتمديات",
+    "description": "ثلاثة مستويات، من الولاية إلى المنطقة، ولكل منها اسم بالعربية والإنجليزية.",
+    "localities": "المناطق",
+    "postalCodes": "الرموز البريدية",
+    "levelGovernorate": "ولاية",
+    "levelDelegation": "معتمدية",
+    "levelLocality": "منطقة",
+    "moreDelegations": "{count} معتمديات أخرى",
+    "moreLocalities": "{count} مناطق أخرى"
   },
   "playground": {
     "title": "ساحة تجريب الواجهة",
@@ -48,20 +63,31 @@
     "radius": "نصف القطر (كم)",
     "getNearbyMunicipalities": "احصل على البلديات القريبة",
     "apiResponse": "استجابة الواجهة",
-    "apiResponsePlaceholder": "// ستظهر استجابة الواجهة هنا",
+    "apiResponsePlaceholder": "أرسل طلبًا لعرض استجابة JSON هنا.",
     "copyUrl": "نسخ الرابط",
     "urlCopied": "تم نسخ الرابط إلى الحافظة!",
     "geolocationError": "فشل في الحصول على موقعك. يرجى السماح بالوصول للموقع أو التحقق من اتصال الإنترنت.",
-    "geolocationNotSupported": "تحديد الموقع الجغرافي غير مدعوم في هذا المتصفح."
+    "geolocationNotSupported": "تحديد الموقع الجغرافي غير مدعوم في هذا المتصفح.",
+    "searchTab": "بحث",
+    "nearbyTab": "بالقرب مني",
+    "send": "إرسال الطلب",
+    "requestUrl": "رابط الطلب",
+    "copyResponse": "نسخ الاستجابة",
+    "resultSummary": "الولايات: {governorates}، المناطق: {localities}",
+    "requestFailed": "فشل الطلب. تحقق من اتصالك وحاول مرة أخرى.",
+    "nearbyHint": "يستخدم موقع متصفحك لإنشاء الطلب.",
+    "optional": "اختياري"
   },
   "documentation": {
     "title": "توثيق واجهة البرمجة",
     "endpoints": {
-      "title": "🔗 نقاط النهاية للواجهة",
-      "baseUrl": "الرابط الأساسي:"
+      "title": "نقاط النهاية",
+      "baseUrl": "الرابط الأساسي",
+      "list": "عرض البلديات والبحث فيها",
+      "near": "البحث عن البلديات القريبة من نقطة"
     },
     "parameters": {
-      "title": "🔍 معاملات الاستعلام",
+      "title": "معاملات الاستعلام",
       "description": "استخدم هذه المعاملات لفلترة بيانات البلديات. جميع المعاملات اختيارية ويمكن دمجها.",
       "name": {
         "description": "فلترة حسب اسم الولاية (مثال: أريانة، تونس، صفاقس)",
@@ -72,16 +98,33 @@
         "example": "?delegation=ville"
       },
       "postalCode": {
-        "description": "فلترة حسب الرمز البريدي (تنسيق 5 أرقام)",
+        "description": "فلترة حسب الرمز البريدي المطابق (4 أرقام)",
         "example": "?postalCode=2058"
       },
       "location": {
         "description": "احصل على البلديات القريبة من موقع محدد ضمن نصف قطر (بالكيلومتر)",
-        "example": "?lat=36.8065&lng=10.1815&radius=5000"
+        "example": "?lat=36.8065&lng=10.1815&radius=5"
+      },
+      "table": {
+        "parameter": "المعامل",
+        "type": "النوع",
+        "description": "الوصف"
+      },
+      "search": {
+        "description": "يبحث في الولايات أولاً، ثم في المعتمديات إذا لم توجد نتائج. يقبل الأسماء بالعربية أو الإنجليزية.",
+        "example": "?search=ariana"
+      },
+      "sort": {
+        "description": "ترتيب الولايات حسب name أو nameAr",
+        "example": "?sort=nameAr"
+      },
+      "order": {
+        "description": "اتجاه الترتيب: asc (افتراضي) أو desc. يُستخدم مع sort.",
+        "example": "?sort=name&order=desc"
       }
     },
     "examples": {
-      "title": "💡 أمثلة على الاستخدام",
+      "title": "أمثلة",
       "getAllMunicipalities": "احصل على جميع البلديات",
       "filterByGovernorate": "فلترة حسب الولاية",
       "filterByDelegation": "فلترة حسب المعتمدية",
@@ -90,10 +133,15 @@
       "exampleLabel": "مثال"
     },
     "response": {
-      "title": "📄مثال على الرد"
-    }
+      "title": "مثال على الاستجابة"
+    },
+    "onThisPage": "في هذه الصفحة"
   },
   "footer": {
     "text": "مصنوع بـ ❤️ لمجتمع المطورين التونسيين"
+  },
+  "common": {
+    "copy": "نسخ",
+    "copied": "تم النسخ"
   }
 }
