@@ -34437,7 +34437,7 @@ export const data = [
       },
       {
         Name: "SMAR (Rehach)",
-        NameAr: "الصمار (رحاش)",
+        NameAr: "الصمار (الرهاش)",
         Value: "SMAR",
         PostalCode: "3223",
         Latitude: 33.05,
@@ -34692,8 +34692,8 @@ export const data = [
         Longitude: 10.4514,
       },
       {
-        Name: "TATAOUINE SUD (Ksar Debab)",
-        NameAr: "تطاوين الجنوبية (قصر دباب)",
+        Name: "TATAOUINE SUD (Ksar Ouled Debbab)",
+        NameAr: "تطاوين الجنوبية (قصر أولاد دباب)",
         Value: "TATAOUINE SUD",
         PostalCode: "3242",
         Latitude: 32.9297,
@@ -35141,7 +35141,7 @@ export const data = [
       },
       {
         Name: "REMADA (Nekrif)",
-        NameAr: "رمادة (نڨريف)",
+        NameAr: "رمادة (نكريف)",
         Value: "REMADA",
         PostalCode: "3286",
         Latitude: 32.3064,
@@ -35157,7 +35157,7 @@ export const data = [
       },
       {
         Name: "TATAOUINE SUD (Ksar Mguebla)",
-        NameAr: "تطاوين الجنوبية (قصر مقبلة)",
+        NameAr: "تطاوين الجنوبية (قصر المقابلة)",
         Value: "TATAOUINE SUD",
         PostalCode: "3221",
         Latitude: 32.9297,
@@ -35165,7 +35165,7 @@ export const data = [
       },
       {
         Name: "TATAOUINE SUD (Rogba)",
-        NameAr: "تطاوين الجنوبية (رقبة)",
+        NameAr: "تطاوين الجنوبية (الرقبة)",
         Value: "TATAOUINE SUD",
         PostalCode: "3293",
         Latitude: 32.9297,
@@ -35237,7 +35237,7 @@ export const data = [
       },
       {
         Name: "TATAOUINE NORD (Ksar Bhir)",
-        NameAr: "تطاوين الشمالية (قصر بهير)",
+        NameAr: "تطاوين الشمالية (قصر بحير)",
         Value: "TATAOUINE NORD",
         PostalCode: "3200",
         Latitude: 32.9297,
@@ -35253,7 +35253,7 @@ export const data = [
       },
       {
         Name: "TATAOUINE NORD (Remtha)",
-        NameAr: "تطاوين الشمالية (رمثا)",
+        NameAr: "تطاوين الشمالية (رمثة)",
         Value: "TATAOUINE NORD",
         PostalCode: "3200",
         Latitude: 32.9297,
@@ -35261,7 +35261,7 @@ export const data = [
       },
       {
         Name: "TATAOUINE NORD (Tamazout)",
-        NameAr: "تطاوين الشمالية (تمازوط)",
+        NameAr: "تطاوين الشمالية (تمزوت)",
         Value: "TATAOUINE NORD",
         PostalCode: "3200",
         Latitude: 32.9297,
