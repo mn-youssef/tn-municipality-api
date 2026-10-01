@@ -154,6 +154,19 @@ function sortMunicipalities(
   });
 }
 
+function badRequest(message: string) {
+  return NextResponse.json({ error: "Bad request", message }, { status: 400 });
+}
+
+const DELEGATION_FIELDS = [
+  "Name",
+  "NameAr",
+  "Value",
+  "PostalCode",
+  "Latitude",
+  "Longitude",
+] as const;
+
 /**
  * GET endpoint for municipalities API
  *
@@ -164,6 +177,10 @@ function sortMunicipalities(
  * - postalCode: Filter by exact postal code match
  * - sort: Sort field ('name' or 'nameAr')
  * - order: Sort order ('asc' or 'desc', defaults to 'asc')
+ * - limit / offset: Paginate over governorates (total count in X-Total-Count header)
+ * - fields: Comma-separated locality fields to keep (e.g. Name,PostalCode)
+ *
+ * Invalid postalCode, limit, offset or fields return a 400.
  *
  * Search behavior:
  * - Searches are case-insensitive
@@ -217,6 +234,9 @@ export async function GET(request: Request) {
     // Filtering by PostalCode (delegation postal code)
     const postalCode = searchParams.get("postalCode");
     if (postalCode) {
+      if (!/^\d{4}$/.test(postalCode)) {
+        return badRequest("postalCode must be exactly 4 digits.");
+      }
       results = filterByPostalCode(postalCode, results);
     }
 
@@ -230,7 +250,61 @@ export async function GET(request: Request) {
       results = sortMunicipalities(results, sortingField, sortOrder);
     }
 
-    return NextResponse.json(results);
+    const limitParam = searchParams.get("limit");
+    const offsetParam = searchParams.get("offset");
+    const fieldsParam = searchParams.get("fields");
+    let limit: number | undefined;
+    let offset = 0;
+
+    if (limitParam !== null) {
+      limit = Number(limitParam);
+      if (!Number.isInteger(limit) || limit < 1) {
+        return badRequest("limit must be a positive integer.");
+      }
+    }
+    if (offsetParam !== null) {
+      offset = Number(offsetParam);
+      if (!Number.isInteger(offset) || offset < 0) {
+        return badRequest("offset must be a non-negative integer.");
+      }
+    }
+
+    let fields: string[] | undefined;
+    if (fieldsParam) {
+      fields = fieldsParam.split(",").map((f) => f.trim());
+      const unknown = fields.filter(
+        (f) => !(DELEGATION_FIELDS as readonly string[]).includes(f),
+      );
+      if (unknown.length > 0) {
+        return badRequest(
+          `Unknown fields: ${unknown.join(", ")}. Allowed: ${DELEGATION_FIELDS.join(", ")}.`,
+        );
+      }
+    }
+
+    const total = results.length;
+    if (limit !== undefined || offset > 0) {
+      results = results.slice(
+        offset,
+        limit !== undefined ? offset + limit : undefined,
+      );
+    }
+    if (fields) {
+      const keep = fields;
+      results = results.map((item) => ({
+        ...item,
+        Delegations: item.Delegations.map(
+          (d) =>
+            Object.fromEntries(
+              Object.entries(d).filter(([key]) => keep.includes(key)),
+            ) as unknown as Delegation,
+        ),
+      }));
+    }
+
+    return NextResponse.json(results, {
+      headers: { "X-Total-Count": String(total) },
+    });
   } catch (error) {
     console.error("Error in municipalities API:", error);
     return NextResponse.json(

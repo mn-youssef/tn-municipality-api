@@ -122,6 +122,11 @@ export function ApiPlayground() {
         } catch (err) {
           const unsupported =
             err instanceof Error && err.message === "unsupported";
+          const denied =
+            typeof err === "object" &&
+            err !== null &&
+            "code" in err &&
+            err.code === 1;
           setResponse({
             ok: false,
             status: null,
@@ -132,7 +137,9 @@ export function ApiPlayground() {
             localities: null,
             error: unsupported
               ? t("geolocationNotSupported")
-              : t("geolocationError"),
+              : denied
+                ? t("geolocationDenied")
+                : t("geolocationError"),
           });
           return;
         }

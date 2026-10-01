@@ -33,9 +33,12 @@ Endpoints:
   - postalCode: exact 4-digit postal code
   - sort: name | nameAr
   - order: asc (default) | desc
+  - limit, offset: paginate over governorates (total count is in the X-Total-Count response header)
+  - fields: comma-separated locality fields to keep, e.g. Name,PostalCode
+  postalCode must be exactly 4 digits; invalid postalCode, limit, offset or fields return a 400.
 - GET /api/municipalities/near?lat={latitude}&lng={longitude}&radius={km}
   Returns only the localities within the radius, grouped by governorate.
-  lat, lng and radius are all required; without them the full dataset is returned.
+  lat, lng and radius are all required; missing or invalid values return a 400.
 
 Response shape:
 [
